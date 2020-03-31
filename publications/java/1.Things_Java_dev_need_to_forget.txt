@@ -1,0 +1,90 @@
+---
+title: 10 Things Java Developers need to forget
+published: false
+description: 
+tags: java, discuss, learning
+---
+
+Not a old time Java programmer, but I have seen Java grow from early Java 1.5 (or was it Java 5) days to the current Java versions. The one thing I have learned over these years is that as the language and tools evolved, programmers also need to evolve, or I dare say change. What was the best strategy I learned in my early career days, are not relevant (and even invalid) in the current scenario.
+In this article, I would look upon some of those monologue in my mind and discussions with opinionated developers. I hope it will force my dev.to community readers brain to stop and think before writing the java class.
+
+## Tab v/s Spaces
+The very basic issue. How to solve this? I have come to terms that its impossible to convince everyone to follow just one. And it's too basic to spend developers valuable time.
+Microservices and agile teams have helped me come to a solution to this problem.
+
+I decide to follow a very simple rule. The choice is not required for the full organization, but just on the project in question. At the project level, the team owning can decide and check in the .editorconfig file (Ref: https://editorconfig.org/) with the project specific rules. Current IDE's will apply these rules automatically. Avoids the discussion for the next team member that joins the project, problem solved..:+1:
+
+## Multi module 
+Well, when I started, I didn't even know that projects can be without modules. We just had multi modules and we were just used to copy and create the same setup. To challenge this, we need to understand the reason behind it. The modules help in modularity (packages :confused:... any takers), sharing of components, removing of duplicate code and ......
+
+The thing with this thought is that anything that is shared is very hard to change. We now hear a lot of decoupling architecture, independent components, micro services.. so why are we making things shareable.
+Some would argue about the Duplicate Code, domain modules can be shared. Well, to them, I would argue duplicate code is not applicable for different projects. Why create a dependency on shared components. If you still want to re-use, just copy and paste.
+
+## Parent pom, Shared Library conundrum
+How many of the companies you have worked with suggested to have control over what libraries to allow and work with parent pom or even better bom's. Guilty as charged :raised_hands:. I have done that and at some point in my career believed that it is a good approach.
+
+What I have realized over time though is that things change much faster then expected. Any centralized team responsible for such kind of things will only be a bottleneck and *smart* developers hate that. What companies need to focus on is the guidelines and reporting on failures. They should however, not focus on how it is implemented. Because, that only makes team dependent on something outside of there control, which we should avoid.
+
+## The *Impl classes
+DAO and *DAOImpl*, Service and *ServiceImpl*... Raise your hands :raised_hand: if you had learned to _Code against Interfaces_. Its like over generalization when there is no need. Some argues that this helps in testing (Mockito any takers..). Hell, I learned that we have to always do it this way because that's how Java is programmed properly.
+
+I started hating this, because I had to define the method in 2 places (one in interface and one in the *Impl class). Worst of all, there was just one Implmentation and there will never be any other implementation. Spring Data JPA was a real eye opener :flushed:. You don't even need a implementation, its generated, like declarative programming. Now Feign client is the standard for API calls. So, things are becoming a lot easier, please use these and avoid the "Not By Me" syndrome.
+
+Again, I am not saying that it is not relevant at all, but challenge yourself and ask everytime you feel the need to create an generalization. Hell Java language have made the difference b/w Interface and Abstract blurred so why not you challenge this.
+
+## Can we use Lombok?
+I have to admit, I did not like the installation of Lombok plugin and pre-processing to be enabled in my Java IDE. But hey what, once you do it, its so much easy to work with that I started loving it. Why I changed...there are a few reasons... besides the obvious clean code, consistency, improved readability and reduce noise (yes, that is a thing in Java).
+Painful Memory :rage: on this topic. In one of my projects, I had seen people writing JUnit test for Getters and Setters using reflection to increase there code coverage report..... and got appreciated for having the maximum coverage. The problem with just looking at numbers. 
+Lombok makes life far easier. ALso, with lombok config, one can enable addition of @Generated annotation on your classes.
+`lombok.addLombokGeneratedAnnotation = true` 
+This will make your jacoco ignore these files for calculation of your source code count. Much better approach then cheating the system.
+Also in the pipeline of Java is the introduction of `object`, adopted from Scala/Kotlin. If the language itself is modifying, we should change for such petty things.
+
+## JUnit vs Integration Test
+When I first started with Sonar, it used to show coverage reports for both Unit and Integration. We were always taught to have more coverage in Unit Testing then in Integration Test. 
+> If you are hearing this for the first time, please see another article [Unit and Integration test coverage report](https://medium.com/@vareshtapadia/unit-and-integration-test-coverage-report-to-sonarqube-ca0a9a492675)
+
+This is still true for big projects but I am not sure if the same rule can be applied in micro services also. When you have small services, excessive JUnit only makes any refactoring difficult. At the end, what we really need is that the service interface works as required. Use Integration Test with no external dependency and Consumer Driven Contracts for inter service contracts (A good starting point is https://docs.pact.io/).
+
+## Release Process
+Release number and Release Manager are things that can be heard far too often. People like increment v12 is newer than v10. How should we name the release, should it contain year/month/date or year/month/incrementing_number. Who all needs to approve the release? Where is the Test Report?
+
+All are required for auditing, but as concept of release pipelines comes into the picture, we need to focus on the Continuous Delivery and not on what should be the version number. Its a common saying that we should do the thing more often that hurts the most. I think, it is the only way we will identify the unnecessary steps and improve it. The more one focus on these, they will realize that the services are not good.
+
+## Configuration per developer
+
+## OSS v/s Home Grown solution :spaghetti:
+
+
+## I hate Java
+
+
+
+
+
+## Review cycles vs fix yourself
+
+
+## JEE v/s Spring
+So much to thank Oracle for this. The project was dead way before but famous Java Architects were pushing for this standard. I think, if they had wasted less time discussing and focus on releasing faster, it might have helped us to not be dependent on one framework. E.G Applications in Spring could migrate to micronaut and other frameworks. But the train :train: has left the station :station:.
+Sun Certified Web Component Developer was a big thing when I started and I am very happy to mention that I did not waste money of that.
+
+
+
+## Design Documentations on Word
+
+
+## Client jars are very important
+
+
+
+
+# throws Custom Exception
+ 
+
+## Not by Me
+> "I don't understand what all has the previous developer wrote. I will have to spend time refactoring it" - the new experienced dev on the team tells the PO. 
+
+
+
+## Java.. Low/No Code Programming Language
